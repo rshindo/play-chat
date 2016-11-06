@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import {messages, Message} from '../message'
+
 @Component({
   selector: 'app-message-list',
   templateUrl: './message-list.component.html',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageListComponent implements OnInit {
 
-  constructor() { }
+	messages: Message[] = [
+		new Message(1, new Date(), "test", "John"),
+		new Message(2, new Date(), "test2", "Bill")
+	];;
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
 
 }

@@ -1,16 +1,25 @@
 <ul class="list-unstyled">
-	<li style="margin-bottom: 20px;">
-		<div style="display: table-cell;">
-			<p style="display: table-cell;">John</p>
+	<li *ngFor="let message of messages" class="row-message row">
+		<div class="col-xs-2">
+			<p>{{message.postedBy}}</p>
+			<span>{{message.displayTime}}</span>
+		</div>
+		<div>
+			{{message.text}}
+		</div>
+	</li>
+	<!-- <li class="row-message row">
+		<div class="col-xs-1">
+			<p>John</p>
 			<span>16:50</span>
 		</div>
-		<div style="display: table-cell; padding-left: 30px;">Hello, World!</div>
+		<div>Hello, World!</div>
 	</li>
-	<li style="margin-bottom: 20px;">
-		<div style="display: table-cell;">
-			<p style="display: table-cell;">Bill</p>
+	<li class="row-message row">
+		<div class="col-xs-1">
+			<p>Bill</p>
 			<span>16:50</span>
 		</div>
-		<div style="display: table-cell; padding-left: 30px;">How do you do?</div>
-	</li>
+		<div>How do you do?</div>
+	</li> -->
 </ul>

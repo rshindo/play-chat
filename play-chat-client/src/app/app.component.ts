@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import {messages} from './message';
+
+
 @Component({
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
@@ -7,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!';
+
+  ngOnInit() {
+  	console.log(messages);
+  }
 }

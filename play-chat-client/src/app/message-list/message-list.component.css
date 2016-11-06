@@ -1,0 +1,7 @@
+/* chat view */
+li.row-message {
+	margin-bottom: 30px;
+}
+li.row-message p {
+	display: table-cell;
+}
