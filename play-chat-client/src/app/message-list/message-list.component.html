@@ -1,5 +1,5 @@
 <ul class="list-unstyled">
-	<li *ngFor="let message of messages" class="row-message row">
+	<li *ngFor="let message of _messageService.messages" class="row-message row">
 		<div class="col-xs-2">
 			<p>{{message.postedBy}}</p>
 			<span>{{message.displayTime}}</span>
