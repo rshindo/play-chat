@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 
-import {Message, messages} from './message'
+import {Message, messages} from './message';
+import {MessageForm} from './message-form';
 
 @Injectable()
 export class MessageService {
@@ -11,14 +12,14 @@ export class MessageService {
 
 	constructor() { }
 
-	post(text: string) {
-		let newMessage = new Message(0, new Date, text, 'John');
+	post(newMessageForm: MessageForm) {
+		let newMessage = new Message(0, new Date, newMessageForm.text, newMessageForm.postedBy);
 		this._messages.push(newMessage);
 	}
 
 	get messages(): Message[] {
 		// return this._messages.sort((a, b) => a.postedTime.getTime() - b.postedTime.getTime());
-		return messages;
+		return this._messages;
 	}
 
 }

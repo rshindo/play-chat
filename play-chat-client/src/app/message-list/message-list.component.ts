@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {messages, Message} from '../message';
+import {MessageForm} from '../message-form';
 import {MessageService} from '../message.service';
 
 @Component({
@@ -11,7 +12,11 @@ import {MessageService} from '../message.service';
 })
 export class MessageListComponent implements OnInit {
 
-	constructor(public _messageService: MessageService) { }
+	messageForm: MessageForm;
+	messages: Message[];
+
+
+	constructor(private _messageService: MessageService) { }
 
 	// messages: Message[] = [
 	// 	new Message(1, new Date(), "test", "John"),
@@ -19,6 +24,18 @@ export class MessageListComponent implements OnInit {
 	// ];;
 
 	ngOnInit() {
+		this.messageForm = new MessageForm("", "John");
+		this.fetch();
+	}
+
+	fetch() {
+		this.messages = this._messageService.messages;
+	}
+
+	onSubmit() {
+		this._messageService.post(this.messageForm);
+		this.messageForm = new MessageForm("", "John");
+		this.fetch();
 	}
 
 }
