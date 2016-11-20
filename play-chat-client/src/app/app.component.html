@@ -1,10 +1,21 @@
-<div class="container">
-	<div class="page-header">
-		<h1>{{title}}</h1>
+<md-sidenav-layout class="left-navigation">
+	<md-sidenav #start mode="side" opened="true">
+	  Start Sidenav.
+	  <br>
+	  <button md-button #closeStartButton (click)="start.close()">Close</button>
+	</md-sidenav>
+
+	<button md-button (click)="start.open()">Open start sidenav</button>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>{{title}}</h1>
+		</div>
+
+		<app-message-list></app-message-list>
+
+		<hr>
 	</div>
 
-	<app-message-list></app-message-list>
+</md-sidenav-layout>
 
-	<hr>
-	
-</div>
