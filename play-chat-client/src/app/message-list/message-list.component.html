@@ -1,3 +1,7 @@
+<div class="page-header">
+  <h1>{{channel.title}}</h1>
+</div>
+
 <ul class="list-unstyled">
 	<li *ngFor="let message of messages" class="row-message row">
 		<div class="col-xs-2">
@@ -8,20 +12,6 @@
 			{{message.text}}
 		</div>
 	</li>
-	<!-- <li class="row-message row">
-		<div class="col-xs-1">
-			<p>John</p>
-			<span>16:50</span>
-		</div>
-		<div>Hello, World!</div>
-	</li>
-	<li class="row-message row">
-		<div class="col-xs-1">
-			<p>Bill</p>
-			<span>16:50</span>
-		</div>
-		<div>How do you do?</div>
-	</li> -->
 </ul>
 
 <hr>

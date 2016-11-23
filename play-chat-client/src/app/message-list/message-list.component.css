@@ -1,10 +1,10 @@
 /* chat view */
 li.row-message {
-	margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 li.row-message p {
-	display: table-cell;
+  display: table-cell;
 }
 form[name="message-form"] input[type="text"] {
-	width: 80%;
+  width: 80%;
 }

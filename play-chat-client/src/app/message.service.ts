@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 
-import {Message, messages} from './message';
-import {MessageForm} from './message-form';
+import { Message, messages } from './message';
+import { MessageForm } from './message-form';
 
 @Injectable()
 export class MessageService {

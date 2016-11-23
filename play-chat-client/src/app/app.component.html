@@ -1,21 +1,26 @@
 <md-sidenav-layout class="left-navigation">
-	<md-sidenav #start mode="side" opened="true">
-	  Start Sidenav.
-	  <br>
-	  <button md-button #closeStartButton (click)="start.close()">Close</button>
-	</md-sidenav>
+  <md-sidenav #start mode="side" opened="true">
+    Start Sidenav.
+    <br>
+    <button md-button #closeStartButton (click)="start.close()">Close</button>
+    <br>
+    <ul class="list-unstyled">
+     <li *ngFor="let channel of channels">
+      <div>
+        <a (click)="changeChannel(channel)">{{channel.channelId}} : {{channel.title}}</a>
+      </div>
+     </li>
+    </ul>
+  </md-sidenav>
 
-	<button md-button (click)="start.open()">Open start sidenav</button>
+  <button md-button (click)="start.open()">Open start sidenav</button>
 
-	<div class="container">
-		<div class="page-header">
-			<h1>{{title}}</h1>
-		</div>
+  <div class="container">
 
-		<app-message-list></app-message-list>
+    <app-message-list [channel]="selectedChannel"></app-message-list>
 
-		<hr>
-	</div>
+    <hr>
+  </div>
 
 </md-sidenav-layout>
 

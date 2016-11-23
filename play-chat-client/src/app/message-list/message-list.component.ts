@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import {messages, Message} from '../message';
 import {MessageForm} from '../message-form';
 import {MessageService} from '../message.service';
+import { Channel } from '../channel';
 
 @Component({
   selector: 'app-message-list',
@@ -12,30 +13,30 @@ import {MessageService} from '../message.service';
 })
 export class MessageListComponent implements OnInit {
 
-	messageForm: MessageForm;
-	messages: Message[];
+  @Input() channel: Channel;
+  messageForm: MessageForm;
+  messages: Message[];
 
+  constructor(private _messageService: MessageService) { }
 
-	constructor(private _messageService: MessageService) { }
+  // messages: Message[] = [
+  //    new Message(1, new Date(), "test", "John"),
+  //    new Message(2, new Date(), "test2", "Bill")
+  // ];;
 
-	// messages: Message[] = [
-	// 	new Message(1, new Date(), "test", "John"),
-	// 	new Message(2, new Date(), "test2", "Bill")
-	// ];;
+  ngOnInit() {
+    this.messageForm = new MessageForm("", "John");
+    this.fetch();
+  }
 
-	ngOnInit() {
-		this.messageForm = new MessageForm("", "John");
-		this.fetch();
-	}
+  fetch() {
+    this.messages = this._messageService.messages;
+  }
 
-	fetch() {
-		this.messages = this._messageService.messages;
-	}
-
-	onSubmit() {
-		this._messageService.post(this.messageForm);
-		this.messageForm = new MessageForm("", "John");
-		this.fetch();
-	}
+  onSubmit() {
+    this._messageService.post(this.messageForm);
+    this.messageForm = new MessageForm("", "John");
+    this.fetch();
+  }
 
 }
