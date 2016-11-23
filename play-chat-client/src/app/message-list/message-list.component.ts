@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import {messages, Message} from '../message';
-import {MessageForm} from '../message-form';
-import {MessageService} from '../message.service';
+import { messages, Message } from '../message';
+import { MessageForm } from '../message-form';
+import { MessageService } from '../message.service';
 import { Channel } from '../channel';
 
 @Component({
@@ -13,7 +13,8 @@ import { Channel } from '../channel';
 })
 export class MessageListComponent implements OnInit {
 
-  @Input() channel: Channel;
+  @Input() inputChannel: Channel;
+  channel: Channel;
   messageForm: MessageForm;
   messages: Message[];
 
@@ -27,6 +28,12 @@ export class MessageListComponent implements OnInit {
   ngOnInit() {
     this.messageForm = new MessageForm("", "John");
     this.fetch();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(this.channel !== this.inputChannel) {
+      this.channel = this.inputChannel;
+    }
   }
 
   fetch() {
