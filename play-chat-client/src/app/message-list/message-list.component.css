@@ -5,3 +5,6 @@ li.row-message {
 li.row-message p {
 	display: table-cell;
 }
+form[name="message-form"] input[type="text"] {
+	width: 80%;
+}
