@@ -3,6 +3,7 @@
     Start Sidenav.
     <br>
     <button md-button #closeStartButton (click)="start.close()">Close</button>
+    <button md-raised-button (click)="openCreateChannelDialog()">New Channel</button>
     <br>
     <ul class="list-unstyled">
      <li *ngFor="let channel of channels">

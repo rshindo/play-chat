@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { Observable } from 'rxjs/Rx';
 
+import { NewChannelDialog } from './new-channel-dialog/new-channel-dialog.component';
 import { Channel } from './channel';
 
 var CHANNELS = {
@@ -11,7 +14,7 @@ var CHANNELS = {
 @Injectable()
 export class ChannelService {
 
-  constructor() { }
+  constructor(private dialog: MdDialog) { }
 
   fetch(channelId: number): Channel {
   	return CHANNELS[channelId];
@@ -24,6 +27,17 @@ export class ChannelService {
   		values.push(CHANNELS[key])
   	}
   	return values;
+  }
+
+  public createGroup(viewContainerRef: ViewContainerRef): Observable<boolean> {
+
+    let dialogRef: MdDialogRef<NewChannelDialog>;
+    let config = new MdDialogConfig();
+    config.viewContainerRef = viewContainerRef;
+
+    dialogRef =  this.dialog.open(NewChannelDialog, config);
+
+    return dialogRef.afterClosed();
   }
 
 }
