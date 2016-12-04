@@ -40,6 +40,10 @@ export class AppComponent {
   openCreateChannelDialog() {
     this._channelService
       .createGroup(this.viewContainerRef)
-      .subscribe();
+      .subscribe(res => {
+        if(res) {
+          this.fetchChannels();
+        }
+      });
   }
 }

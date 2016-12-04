@@ -1,4 +1,11 @@
 <p>
   group-dialog works!
 </p>
-<button type="button" class="button button-default" md-button (click)="dialogRef.close()">Cancel</button>
+<form action="new-channel-form" method="get" accept-charset="utf-8" (ngSubmit)="create()">
+  <div>
+    <label for="new-channel-title">Channel Name</label>
+    <input type="text" id="new-channel-title" name="channelTitle" placeholder="" [(ngModel)]="channelTitle">
+  </div>
+  <button type="submit" class="button button-default" md-button>create</button>
+  <button type="button" class="button button-default" md-button (click)="dialogRef.close()">Cancel</button>
+</form>
