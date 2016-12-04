@@ -17,6 +17,16 @@ class ApplicationSpec extends PlaySpec with OneAppPerTest {
 
   }
 
+  "ApiController" should {
+
+    "return pong" in {
+      val response = route(app, FakeRequest(GET, "/api/ping")).get
+      status(response) mustBe OK
+      contentType(response) mustBe Some("text/plain")
+      contentAsString(response) must equal("pong")
+    }
+  }
+
   "HomeController" should {
 
     "render the index page" in {
