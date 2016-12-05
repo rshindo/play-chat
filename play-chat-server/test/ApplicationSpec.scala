@@ -25,6 +25,7 @@ class ApplicationSpec extends PlaySpec with OneAppPerTest {
       contentType(response) mustBe Some("text/plain")
       contentAsString(response) must equal("pong")
     }
+
   }
 
 }

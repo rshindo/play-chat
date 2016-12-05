@@ -7,3 +7,6 @@ GET     /                           controllers.HomeController.index
 
 # test API
 GET     /api/ping                   controllers.ApiController.pong
+
+# fetch messages
+GET     /api/channel/:channelId/messages    controllers.ApiController.fetchMessages(channelId: Long)
