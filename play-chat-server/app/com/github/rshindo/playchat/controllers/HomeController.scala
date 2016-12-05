@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject._
 
+import com.github.rshindo.playchat.views
 import play.api.mvc._
 
 /**
