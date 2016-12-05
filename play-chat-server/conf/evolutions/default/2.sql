@@ -6,7 +6,7 @@ CREATE TABLE messages (
     text varchar(1000) NOT NULL,
     user_id bigint(20) NOT NULL,
     channel_id bigint(20) NOT NULL,
-    postedTime timestamp NOT NULL,
+    posted_time timestamp NOT NULL,
     PRIMARY KEY (message_id),
     FOREIGN KEY (channel_id)
         REFERENCES channels (channel_id)
