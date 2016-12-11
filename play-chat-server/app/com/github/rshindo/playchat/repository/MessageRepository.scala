@@ -1,5 +1,6 @@
 package com.github.rshindo.playchat.repository
 
+import java.time.{Instant, ZoneId, ZoneOffset}
 import java.util.Date
 import javax.inject.Singleton
 
@@ -22,7 +23,7 @@ class MessageRepository {
         messageId = m.messageId,
         text = m.text,
         userId = m.userId,
-        postedTime = new Date(m.postedTime.getTime)
+        postedTime = m.postedTime.toDate()
       )
     }
   }

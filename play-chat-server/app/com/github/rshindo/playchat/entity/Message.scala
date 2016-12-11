@@ -2,6 +2,8 @@ package com.github.rshindo.playchat.entity
 
 import java.sql.Date
 
+import org.joda.time
+import org.joda.time.LocalDateTime
 import scalikejdbc._
 
 /**
@@ -11,15 +13,16 @@ case class Message(messageId: Long,
                    text: String,
                    userId: String,
                    channelId: Long,
-                   postedTime: Date)
+                   postedTime: time.LocalDateTime)
 
 object Message extends SQLSyntaxSupport[Message] {
 
   override val tableName = "messages"
   override val columnNames = Seq("message_id", "text", "user_id", "channel_id", "posted_time")
+  override val columns = Seq("message_id", "text", "user_id", "channel_id", "posted_time")
 
   def create(text: String, userId: String, channelId: Long)(implicit session: DBSession): Message = {
-    val postedTime = new Date(new java.util.Date().getTime)
+    val postedTime = LocalDateTime.now();
     val id = withSQL {
       insertInto(Message).namedValues(
         column.text -> text,
@@ -33,18 +36,19 @@ object Message extends SQLSyntaxSupport[Message] {
 
   def findByChannelId(channelId: Long)(implicit session: DBSession): List[Message] = {
     val m = Message.syntax("m")
-    withSQL {
-      selectFrom(Message as m).where.eq(m.channelId, channelId)
-    }
-      .map { rs =>
-        Message(
-          messageId = rs.get(m.resultName.messageId),
-          text = rs.get(m.resultName.text),
-          userId = rs.get(m.resultName.userId),
-          channelId = rs.get(m.resultName.channelId),
-          postedTime = rs.get(m.resultName.postedTime)
-        )
-      }.list().apply()
+    sql"""SELECT ${m.result.messageId}, ${m.result.text},
+          ${m.result.userId}, ${m.result.channelId}, ${m.result.postedTime}
+         FROM ${Message.as(m)} WHERE channel_id = ${channelId}"""
+      .map(rs => Message(m.resultName)(rs)).list().apply()
+  }
+
+  def apply(s: ResultName[Message])(rs: WrappedResultSet): Message = {
+    Message(
+      rs.long(s.messageId),
+      rs.string(s.text),
+      rs.string(s.userId),
+      rs.long(s.channelId),
+      rs.jodaLocalDateTime(s.postedTime))
   }
 
 }
