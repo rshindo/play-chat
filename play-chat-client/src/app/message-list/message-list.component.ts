@@ -37,7 +37,13 @@ export class MessageListComponent implements OnInit {
   }
 
   fetch() {
-    this.messages = this._messageService.messages;
+    this._messageService
+      .fetch(1)
+      .subscribe(
+        messages => this.messages = messages,
+        error => console.log(error) 
+      );
+    // this.messages = this._messageService.messages;
   }
 
   onSubmit() {

@@ -3,7 +3,7 @@ export class Message {
     public id: number,
     public postedTime: Date,
     public text: string,
-    public postedBy: string
+    public userId: string
   ){}
 
   get displayTime() {
