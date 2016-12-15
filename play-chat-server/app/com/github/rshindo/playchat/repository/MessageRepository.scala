@@ -23,7 +23,7 @@ class MessageRepository {
         messageId = m.messageId,
         text = m.text,
         userId = m.userId,
-        postedTime = m.postedTime.toDate()
+        postedTime = Date.from(m.postedTime.atZone(ZoneId.systemDefault()).toInstant)
       )
     }
   }

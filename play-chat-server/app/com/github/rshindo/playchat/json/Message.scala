@@ -15,7 +15,7 @@ case class Message(messageId: Long,
 
 object Message {
 
-  implicit val f = Writes.dateWrites("yyyy/MM/dd HH:mm:ss")
+  implicit val f = Writes.dateWrites("yyyy-MM-dd HH:mm:ss")
 
   implicit val messageWrites: Writes[Message] = (
     (JsPath \ "messageId").write[Long] and

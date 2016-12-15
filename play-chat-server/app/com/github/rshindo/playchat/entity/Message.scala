@@ -1,10 +1,9 @@
 package com.github.rshindo.playchat.entity
 
-import java.sql.Date
+import java.time.LocalDateTime
 
-import org.joda.time
-import org.joda.time.LocalDateTime
 import scalikejdbc._
+import scalikejdbc.jsr310._
 
 /**
   * Created by shindo on 2016/12/05.
@@ -13,7 +12,7 @@ case class Message(messageId: Long,
                    text: String,
                    userId: String,
                    channelId: Long,
-                   postedTime: time.LocalDateTime)
+                   postedTime: LocalDateTime)
 
 object Message extends SQLSyntaxSupport[Message] {
 
@@ -22,7 +21,7 @@ object Message extends SQLSyntaxSupport[Message] {
   override val columns = Seq("message_id", "text", "user_id", "channel_id", "posted_time")
 
   def create(text: String, userId: String, channelId: Long)(implicit session: DBSession): Message = {
-    val postedTime = LocalDateTime.now();
+    val postedTime = java.time.LocalDateTime.now();
     val id = withSQL {
       insertInto(Message).namedValues(
         column.text -> text,
@@ -48,7 +47,7 @@ object Message extends SQLSyntaxSupport[Message] {
       rs.string(s.text),
       rs.string(s.userId),
       rs.long(s.channelId),
-      rs.jodaLocalDateTime(s.postedTime))
+      rs.localDateTime(s.postedTime))
   }
 
 }
