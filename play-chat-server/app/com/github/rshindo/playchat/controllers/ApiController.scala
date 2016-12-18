@@ -3,7 +3,7 @@ package controllers
 import javax.inject.{Inject, Singleton}
 
 import com.github.rshindo.playchat.repository.MessageRepository
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, Controller}
 
 /**
@@ -33,6 +33,19 @@ class ApiController @Inject()(messageRepository: MessageRepository) extends Cont
   def fetchMessages(channelId: Long) = Action {
     val json = Json.toJson(messageRepository.findByChannelId(channelId))
     Ok(json)
+  }
+
+  def postMessage(channelId: Long) = Action { request =>
+    val jsonOpt = request.body.asJson
+    jsonOpt match {
+      case Some(json) =>
+        val text = (json \ "text").as[String]
+        val userId = (json \ "userId").as[String]
+        messageRepository.save(text, userId, channelId)
+        Ok
+      case None =>
+        BadRequest
+    }
   }
 
 }

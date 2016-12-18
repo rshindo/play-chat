@@ -10,3 +10,6 @@ GET     /api/ping                   controllers.ApiController.pong
 
 # fetch messages
 GET     /api/channel/:channelId/messages    controllers.ApiController.fetchMessages(channelId: Long)
+
+# post message
+POST    /api/channel/:channelId/messages/post    controllers.ApiController.postMessage(channelId: Long)

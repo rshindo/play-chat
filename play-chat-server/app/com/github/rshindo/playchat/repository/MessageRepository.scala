@@ -28,4 +28,10 @@ class MessageRepository {
     }
   }
 
+  def save(text: String, userId: String, channelId: Long): Unit = {
+    DB autoCommit { implicit session =>
+      Message.create(text, userId, channelId)
+    }
+  }
+
 }
