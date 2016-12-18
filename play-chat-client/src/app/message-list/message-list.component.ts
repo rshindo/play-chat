@@ -17,6 +17,7 @@ export class MessageListComponent implements OnInit {
   channel: Channel;
   messageForm: MessageForm;
   messages: Message[];
+  private interval;
 
   constructor(private _messageService: MessageService) { }
 
@@ -26,27 +27,32 @@ export class MessageListComponent implements OnInit {
   // ];;
 
   ngOnInit() {
-    this.messageForm = new MessageForm("", "John", this.channel.channelId);
-    this.fetch();
+    if(this.channel != null) {
+      this.messageForm = new MessageForm("", "John", this.channel.channelId);
+      this.fetch();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.channel !== this.inputChannel) {
+      clearInterval(this.interval);
+      this.messages = [];
       this.channel = this.inputChannel;
       this.ngOnInit();
     }
   }
 
   fetch() {
-    setInterval(() => {
-      this._messageService
-        .fetch(1)
-        .subscribe(
-          messages => this.messages = messages,
-          error => console.log(error) 
-        );
-      // this.messages = this._messageService.messages;
-    }, 1000)
+    if(this.channel != null) {
+      this.interval = setInterval(() => {
+        this._messageService
+          .fetch(this.channel.channelId)
+          .subscribe(
+            messages => this.messages = messages,
+            error => console.log(error) 
+          );
+      }, 2000);
+    }
   }
 
   onSubmit() {

@@ -13,3 +13,6 @@ GET     /api/channel/:channelId/messages    controllers.ApiController.fetchMessa
 
 # post message
 PUT     /api/channel/:channelId/messages    controllers.ApiController.postMessage(channelId: Long)
+
+# fetch channels
+GET     /api/channel                        controllers.ApiController.fetchChannels()

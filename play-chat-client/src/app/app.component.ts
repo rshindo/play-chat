@@ -24,13 +24,17 @@ export class AppComponent {
     private _channelService: ChannelService) {}
 
   ngOnInit() {
-  	console.log(messages);
   	this.fetchChannels();
-    this.selectedChannel = this.channels[0];
+    // this.selectedChannel = this.channels[0];
   }
 
   fetchChannels() {
-  	this.channels = this._channelService.fetchAll();
+    this._channelService
+      .fetchAll()
+      .subscribe(
+        channels => this.channels = channels,
+        error => console.log(error)
+      );
   }
 
   changeChannel(channel: Channel) {

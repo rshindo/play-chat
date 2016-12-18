@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 
-import com.github.rshindo.playchat.repository.MessageRepository
+import com.github.rshindo.playchat.repository.{ChannelRepository, MessageRepository}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, Controller}
 
@@ -12,7 +12,8 @@ import play.api.mvc.{Action, Controller}
   * Created by shindo on 2016/12/04.
   */
 @Singleton
-class ApiController @Inject()(messageRepository: MessageRepository) extends Controller {
+class ApiController @Inject()(messageRepository: MessageRepository,
+                              channelRepository: ChannelRepository) extends Controller {
 
   /**
     * This is for test.
@@ -46,6 +47,11 @@ class ApiController @Inject()(messageRepository: MessageRepository) extends Cont
       case None =>
         BadRequest
     }
+  }
+
+  def fetchChannels() = Action {
+    val json = Json.toJson(channelRepository.findAll())
+    Ok(json)
   }
 
 }

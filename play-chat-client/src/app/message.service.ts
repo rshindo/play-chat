@@ -23,7 +23,7 @@ export class MessageService {
 	}
 
 	fetch(channelId: number): Observable<Message[]> {
-		return this.http.get(this.url.replace('${channelId}', '1'))
+		return this.http.get(this.url.replace('${channelId}', channelId.toString()))
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
