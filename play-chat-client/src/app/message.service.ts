@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -9,19 +9,21 @@ import { MessageForm } from './message-form';
 @Injectable()
 export class MessageService {
 
-	private fetchUrl = 'http://localhost:8080/api/channel/${channelId}/messages';
-
-	private _messages: Message[] = messages;
+	private url = 'http://localhost:8080/api/channel/${channelId}/messages';
 
 	constructor(private http: Http) { }
 
-	post(newMessageForm: MessageForm) {
-		let newMessage = new Message(0, new Date, newMessageForm.text, newMessageForm.postedBy);
-		this._messages.push(newMessage);
+	post(newMessageForm: MessageForm): Observable<String> {
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let options = new RequestOptions({ headers: headers });
+		let json = JSON.stringify(newMessageForm);
+		let url = this.url.replace('${channelId}', newMessageForm.channelId.toString());
+		return this.http.put(url, json, options)
+			.catch(this.handleError);
 	}
 
 	fetch(channelId: number): Observable<Message[]> {
-		return this.http.get(this.fetchUrl.replace('${channelId}', '1'))
+		return this.http.get(this.url.replace('${channelId}', '1'))
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
@@ -38,10 +40,6 @@ export class MessageService {
 				obj.userId));
 		}
 		return messages || [];
-	}
-
-	get messages(): Message[] {
-		return this._messages;
 	}
 
 	private handleError (error: Response | any) {

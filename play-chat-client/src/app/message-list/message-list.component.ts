@@ -26,13 +26,14 @@ export class MessageListComponent implements OnInit {
   // ];;
 
   ngOnInit() {
-    this.messageForm = new MessageForm("", "John");
+    this.messageForm = new MessageForm("", "John", this.channel.channelId);
     this.fetch();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.channel !== this.inputChannel) {
       this.channel = this.inputChannel;
+      this.ngOnInit();
     }
   }
 
@@ -49,8 +50,12 @@ export class MessageListComponent implements OnInit {
   }
 
   onSubmit() {
-    this._messageService.post(this.messageForm);
-    this.messageForm = new MessageForm("", "John");
+    this._messageService
+      .post(this.messageForm)
+      .subscribe(
+          success => this.messageForm = new MessageForm("", "John", this.channel.channelId),
+          error => alert("failed to post message")
+        );
     this.fetch();
   }
 

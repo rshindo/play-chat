@@ -12,4 +12,4 @@ GET     /api/ping                   controllers.ApiController.pong
 GET     /api/channel/:channelId/messages    controllers.ApiController.fetchMessages(channelId: Long)
 
 # post message
-POST    /api/channel/:channelId/messages/post    controllers.ApiController.postMessage(channelId: Long)
+PUT     /api/channel/:channelId/messages    controllers.ApiController.postMessage(channelId: Long)
