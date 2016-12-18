@@ -28,11 +28,9 @@ export class MessageService {
 
 	private extractData(res: Response) {
 		let body = res.json();
-		console.log(body);
 		var messages = [];
 		for(var i = 0; i < body.length; i++) {
 			let obj = body[i];
-			console.log(obj.postedTime);
 			messages.push(new Message(
 				obj.messageId, 
 				new Date(obj.postedTime),
